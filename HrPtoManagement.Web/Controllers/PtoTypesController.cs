@@ -9,36 +9,32 @@ using Microsoft.EntityFrameworkCore;
 using HrPtoManagement.Web.Data;
 using AutoMapper;
 using HrPtoManagement.Web.Models;
+using HrPtoManagement.Web.Interfaces;
 
 namespace HrPtoManagement.Web.Controllers
 {
     public class PtoTypesController : Controller
     {
-        private readonly ApplicationDbContext _context;
+        private readonly IPtoTypeRepository ptoTypeRepository;
         private readonly IMapper mapper;
 
-        public PtoTypesController(ApplicationDbContext context, IMapper mapper)
+        public PtoTypesController(IPtoTypeRepository ptoTypeRepository, IMapper mapper)
         {
-            _context = context;
+            this.ptoTypeRepository = ptoTypeRepository;
             this.mapper = mapper;
         }
 
         // GET: PtoTypes
         public async Task<IActionResult> Index()
         {
-            var ptoTypes = mapper.Map<List<PtoTypeViewModel>>(await _context.PtoTypes.ToListAsync());
+            var ptoTypes = mapper.Map<List<PtoTypeViewModel>>(await ptoTypeRepository.GetAllAsync());
             return View(ptoTypes);
         }
 
         // GET: PtoTypes/Details/5
         public async Task<IActionResult> Details(int? id)
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var ptoType = await _context.PtoTypes.FindAsync(id);
+            var ptoType = await ptoTypeRepository.GetAsync(id);
             if (ptoType == null)
             {
                 return NotFound();
@@ -64,8 +60,7 @@ namespace HrPtoManagement.Web.Controllers
             if (ModelState.IsValid)
             {
                 var ptoType = mapper.Map<PtoType>(ptoTypeViewModel);
-                _context.Add(ptoType);
-                await _context.SaveChangesAsync();
+                await ptoTypeRepository.AddAsync(ptoType);
                 return RedirectToAction(nameof(Index));
             }
             return View(ptoTypeViewModel);
@@ -74,12 +69,7 @@ namespace HrPtoManagement.Web.Controllers
         // GET: PtoTypes/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var ptoType = await _context.PtoTypes.FindAsync(id);
+            var ptoType = await ptoTypeRepository.GetAsync(id);
             if (ptoType == null)
             {
                 return NotFound();
@@ -106,12 +96,11 @@ namespace HrPtoManagement.Web.Controllers
                 try
                 {
                     var ptoType = mapper.Map<PtoType>(ptoTypeViewModel);
-                    _context.Update(ptoType);
-                    await _context.SaveChangesAsync();
+                    await ptoTypeRepository.UpdateAsync(ptoType);
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!PtoTypeExists(ptoTypeViewModel.Id))
+                    if (!await ptoTypeRepository.Exists(ptoTypeViewModel.Id))
                     {
                         return NotFound();
                     }
@@ -125,38 +114,13 @@ namespace HrPtoManagement.Web.Controllers
             return View(ptoTypeViewModel);
         }
 
-        // GET: PtoTypes/Delete/5
-        public async Task<IActionResult> Delete(int? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var ptoType = await _context.PtoTypes
-                .FirstOrDefaultAsync(m => m.Id == id);
-            if (ptoType == null)
-            {
-                return NotFound();
-            }
-
-            return View(ptoType);
-        }
-
         // POST: PtoTypes/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var ptoType = await _context.PtoTypes.FindAsync(id);
-            _context.PtoTypes.Remove(ptoType);
-            await _context.SaveChangesAsync();
+            await ptoTypeRepository.DeleteAsync(id);
             return RedirectToAction(nameof(Index));
-        }
-
-        private bool PtoTypeExists(int id)
-        {
-            return _context.PtoTypes.Any(e => e.Id == id);
         }
     }
 }
