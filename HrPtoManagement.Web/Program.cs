@@ -5,6 +5,8 @@ using AutoMapper;
 using HrPtoManagement.Web.Configurations;
 using HrPtoManagement.Web.Interfaces;
 using HrPtoManagement.Web.Repositories;
+using Microsoft.AspNetCore.Identity.UI.Services;
+using HrPtoManagement.Web.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -15,7 +17,10 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
 builder.Services.AddDefaultIdentity<Employee>(options => options.SignIn.RequireConfirmedAccount = true)
+    .AddRoles<IdentityRole>()
     .AddEntityFrameworkStores<ApplicationDbContext>();
+
+builder.Services.AddTransient<IEmailSender>(s => new EmailSender("localhost", 25, "no-reply@hrptomanagement.com"));
 
 builder.Services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
 builder.Services.AddScoped<IPtoTypeRepository, PtoTypeRepository>();

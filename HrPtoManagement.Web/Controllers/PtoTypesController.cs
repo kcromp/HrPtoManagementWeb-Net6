@@ -10,9 +10,12 @@ using HrPtoManagement.Web.Data;
 using AutoMapper;
 using HrPtoManagement.Web.Models;
 using HrPtoManagement.Web.Interfaces;
+using Microsoft.AspNetCore.Authorization;
+using HrPtoManagement.Web.Constants;
 
 namespace HrPtoManagement.Web.Controllers
 {
+    [Authorize(Roles = Roles.Administrator)]
     public class PtoTypesController : Controller
     {
         private readonly IPtoTypeRepository ptoTypeRepository;

@@ -4,6 +4,7 @@ using HrPtoManagement.Web.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace HrPtoManagement.Web.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220305210556_AddedDefaultRolesAndUsers")]
+    partial class AddedDefaultRolesAndUsers
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -105,41 +107,37 @@ namespace HrPtoManagement.Web.Data.Migrations
                         {
                             Id = "7fcbe1c1-27a7-4f47-b7b1-17755af9398a",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "9d75f0f1-8feb-4faf-bc0e-8a9f86fbc0d0",
+                            ConcurrencyStamp = "6d4835d8-78d8-47f5-a521-8470a5450a98",
                             DateJoined = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             DateOfBirth = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Email = "admin@localhost.com",
-                            EmailConfirmed = true,
+                            EmailConfirmed = false,
                             Firstname = "System",
                             Lastname = "Admin",
                             LockoutEnabled = false,
                             NormalizedEmail = "ADMIN@LOCALHOST.COM",
-                            NormalizedUserName = "ADMIN@LOCALHOST.COM",
-                            PasswordHash = "AQAAAAEAACcQAAAAEDpBsnDSoxMrsWRHBxh4t5d2FsLY9KmcRsqBkmVLQMWrvUgyL0P9Sj4VBufRtOQCpg==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEKgPMdZcM5LPGjHj/dwnfl5o7Yuo4C9mz/T4w3Y4BHem8rIecdsNjnfntdver6VRGg==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "784f262c-17e2-4de4-96a0-1b83c1dcb79b",
-                            TwoFactorEnabled = false,
-                            UserName = "admin@localhost.com"
+                            SecurityStamp = "9668b3b0-567f-4953-8ff4-45fd8bae0a41",
+                            TwoFactorEnabled = false
                         },
                         new
                         {
                             Id = "3bcde2c1-24a5-4b27-a7b1-15523af8391a",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "6cb715fd-905b-47ab-8679-15d1d4d7dd09",
+                            ConcurrencyStamp = "99870747-7c05-4133-b5b8-6e938ada882c",
                             DateJoined = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             DateOfBirth = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Email = "user@localhost.com",
-                            EmailConfirmed = true,
+                            EmailConfirmed = false,
                             Firstname = "System",
                             Lastname = "USER",
                             LockoutEnabled = false,
                             NormalizedEmail = "USER@LOCALHOST.COM",
-                            NormalizedUserName = "USER@LOCALHOST.COM",
-                            PasswordHash = "AQAAAAEAACcQAAAAEMTD2ybAgSo/5eqy5p0x7RIDtLx8eqZwfvxF/T2WxSPcyhphTS0UTBJYjXyc9khkHQ==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEECSl63Ikic7tDw3bJ5qSRZXyiP+zK+wfo77f2yZBAJHAt8lY6SqDAYpt+irY4VWeA==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "9d90bd6d-1a2b-46bf-84f8-a4bf42631f9b",
-                            TwoFactorEnabled = false,
-                            UserName = "user@localhost.com"
+                            SecurityStamp = "41029c4e-dcb6-478c-8aa8-e4b5396d5fdb",
+                            TwoFactorEnabled = false
                         });
                 });
 
@@ -230,14 +228,14 @@ namespace HrPtoManagement.Web.Data.Migrations
                         new
                         {
                             Id = "7fcbe8c1-27a3-4f47-b7b9-17755af9398z",
-                            ConcurrencyStamp = "e7ff52d4-71d7-4e34-b82e-94f5e9333b54",
+                            ConcurrencyStamp = "f92407d4-3c4e-4c55-b1c4-880f04c58d9c",
                             Name = "Administrator",
                             NormalizedName = "ADMINISTRATOR"
                         },
                         new
                         {
                             Id = "7bace8c3-27a5-4b17-b7a9-17251af9398z",
-                            ConcurrencyStamp = "4522de82-e43f-4336-9bc6-fc99d1c5ae79",
+                            ConcurrencyStamp = "2f83f3e3-d319-436e-ab58-eef4c37cde0a",
                             Name = "User",
                             NormalizedName = "USER"
                         });
